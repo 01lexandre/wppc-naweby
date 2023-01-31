@@ -1,5 +1,4 @@
 /build
-/.idea
 /node_modules
 *.png
 *.tgz
