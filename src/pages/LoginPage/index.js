@@ -57,12 +57,14 @@ export default function LoginPage({history}) {
     const [errorMessage, setErrorMessage] = useState("");
     const [titleError, setTitleError] = useState("");
     const animationRef = useRef(null);
-    const layoutRef = useRef(null);
+    // const layoutRef = useRef(null);
 
     const {state: haveLogin} = useLocation();
 
     useEffect(() => {
         socket.on("qrCode", (qrCode) => {
+            console.log('qrCode', qrCode)
+            console.log('session', session)
             if (session === qrCode.session) {
                 setQrCode(qrCode.data);
                 handleCloseBackdrop();
@@ -73,6 +75,7 @@ export default function LoginPage({history}) {
         });
 
         socket.off("session-logged").on("session-logged", (status) => {
+            console.log('session', status)
             if (status.session === session) {
                 if (token) {
                     insertLocalStorage();
@@ -96,6 +99,7 @@ export default function LoginPage({history}) {
         } else {
             handleToggleBackdrop();
             await startSession();
+            // await startSession2();
         }
     }
 
